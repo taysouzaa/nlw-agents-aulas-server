@@ -1,93 +1,74 @@
-# NLW Agents
+# NLW Agents — Servidor de Aulas
 
-Projeto desenvolvido durante um evento da **Rocketseat** utilizando tecnologias modernas para criação de uma API robusta e eficiente.
+> Servidor de agentes de IA desenvolvido durante o NLW Agents da Rocketseat, com busca semântica por vetores e API REST.
 
-## 🚀 Tecnologias
+![Status](https://img.shields.io/badge/status-concluído-22c55e)
+![TypeScript](https://img.shields.io/badge/TypeScript-Node.js-3178c6?logo=typescript)
+![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL%2Fpgvector-336791?logo=postgresql)
+![Docker](https://img.shields.io/badge/infra-Docker-2496ED?logo=docker)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-- **Node.js** com TypeScript nativo (experimental strip types)
-- **Fastify** - Framework web rápido e eficiente
-- **PostgreSQL** com extensão **pgvector** para vetores
-- **Drizzle ORM** - Type-safe database operations
-- **Zod** - Schema validation
-- **Docker** - Containerização do banco de dados
-- **Biome** - Linting e formatação de código
+## Visão do Projeto
 
-## 🏗️ Arquitetura
+O **NLW Agents** é um servidor de agentes de IA construído durante o evento **NLW Agents da Rocketseat**. O projeto implementa uma API REST com busca semântica baseada em vetores (pgvector), permitindo que agentes de IA consultem e respondam perguntas sobre conteúdo de aulas.
 
-O projeto segue uma arquitetura modular com:
+### O que o sistema resolve
 
-- **Separação de responsabilidades** entre rotas, schemas e conexão com banco
-- **Validação de schemas** com Zod para type safety
-- **ORM type-safe** com Drizzle para operações de banco de dados
-- **Validação de variáveis de ambiente** centralizadas
+- Permite busca semântica em conteúdo de aulas via embeddings vetoriais.
+- Expõe endpoints REST para integração com agentes de IA.
+- Containeriza banco de dados com Docker para setup rápido.
 
-## ⚙️ Setup e Configuração
+## O Que Foi Desenvolvido
 
-### Pré-requisitos
+### 1. API REST com Fastify
+- Endpoints para criação, consulta e busca de conteúdo de aulas.
+- Validação de dados com **Zod**.
+- Roteamento modular e type-safe.
 
-- Node.js (versão com suporte a `--experimental-strip-types`)
-- Docker e Docker Compose
+### 2. Banco de Dados Vetorial
+- PostgreSQL com extensão **pgvector** para armazenamento de embeddings.
+- **Drizzle ORM** para queries type-safe e migrations.
+- Docker Compose para subir o banco localmente com um comando.
 
-### 1. Clone o repositório
-```bash
-git clone <url-do-repositorio>
-cd server
+### 3. Qualidade de Código
+- TypeScript nativo (experimental strip types — sem transpilação).
+- **Biome** para linting e formatação consistente.
+- Arquivo `client.http` para testes manuais de endpoints.
+
+## Stack Técnica
+
+- **Backend:** Node.js (TypeScript nativo), Fastify
+- **Banco:** PostgreSQL + pgvector, Drizzle ORM
+- **Validação:** Zod
+- **Infra:** Docker, Docker Compose
+- **Qualidade:** Biome
+
+## Estrutura do Projeto
+
+```text
+.
+├─ src/                   ← código-fonte principal
+├─ docker/                ← configurações Docker
+├─ docker-compose.yml     ← banco de dados local
+├─ drizzle.config.ts      ← configuração de migrations
+├─ client.http            ← testes de endpoints
+├─ biome.jsonc            ← linting/formatação
+├─ package.json
+└─ tsconfig.json
 ```
 
-### 2. Configure o banco de dados
+## Como Executar
+
 ```bash
+# Subir banco de dados
 docker-compose up -d
-```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto:
-
-```env
-PORT=3333
-DATABASE_URL=postgresql://docker:docker@localhost:5432/agents
-```
-
-### 4. Instale as dependências
-```bash
+# Instalar dependências e rodar
 npm install
-```
-
-### 5. Execute as migrações do banco
-```bash
-npx drizzle-kit migrate
-```
-
-### 6. (Opcional) Popule o banco com dados de exemplo
-```bash
-npm run db:seed
-```
-
-### 7. Execute o projeto
-
-**Desenvolvimento:**
-```bash
+npm run db:migrate
 npm run dev
 ```
 
-**Produção:**
-```bash
-npm start
-```
+## Licença
 
-## 📚 Scripts Disponíveis
-
-- `npm run dev` - Executa o servidor em modo de desenvolvimento com hot reload
-- `npm start` - Executa o servidor em modo de produção
-- `npm run db:seed` - Popula o banco de dados com dados de exemplo
-
-## 🌐 Endpoints
-
-A API estará disponível em `http://localhost:3333`
-
-- `GET /health` - Health check da aplicação
-- `GET /rooms` - Lista as salas disponíveis
-
----
-
-Desenvolvido com ❤️ durante o NLW da Rocketseat 
+MIT — veja [LICENSE](./LICENSE)
